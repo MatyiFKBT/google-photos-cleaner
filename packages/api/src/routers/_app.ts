@@ -20,6 +20,17 @@ export const appRouter = router({
 		};
 	}),
 	post: postRouter,
+
+	// TODO: move this to a separate router, and use google's js sdk to have type safety
+	getAlbums: authProcedure.query(async ({ ctx }) => {
+		const response = await fetch('https://photoslibrary.googleapis.com/v1/mediaItems', {
+			headers: {
+				'Authorization': `Bearer ${ctx.session.access_token}`
+			}
+		})
+		const json = await response.json()
+		return json.mediaItems as {id:string, baseUrl:string}[]
+	}),
 });
 
 // export type definition of API

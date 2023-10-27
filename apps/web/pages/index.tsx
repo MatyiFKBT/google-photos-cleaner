@@ -55,10 +55,10 @@ export default function IndexPage() {
                 variant={'outline'}
                 size={'lg'}
                 onClick={() => {
-                  signIn('github')
+                  signIn('google')
                 }}
               >
-                Login with GitHub
+                Login with Google
               </Button>
             </div>
           </>
