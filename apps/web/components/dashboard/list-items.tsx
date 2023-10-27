@@ -2,7 +2,7 @@ import { trpc } from '@/utils/trpc'
 import React from 'react'
 
 export default function DashboardListItems() {
-	const { data, isLoading, error } = trpc.getAlbums.useQuery()
+	const { data, isLoading, error } = trpc.photos.getAlbums.useQuery()
 
 	return (
 		<div className="border-2 border-white p-2">
