@@ -1,0 +1,27 @@
+{
+  "name": "@luego/db",
+  "description": "Database connection and query builder",
+  "private": true,
+  "dependencies": {
+    "@prisma/client": "^4.11.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "@types/node": "18.11.15",
+    "argon2": "^0.30.2",
+    "prisma": "^4.11.0",
+    "tsx": "^3.12.1",
+    "typescript": "^4.9.5"
+  },
+  "scripts": {
+    "db:g": "prisma generate",
+    "db:seed": "prisma db seed",
+    "db:studio": "prisma studio",
+    "db:push": "prisma db push --skip-generate"
+  },
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  }
+}
