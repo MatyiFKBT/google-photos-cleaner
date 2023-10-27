@@ -5,6 +5,9 @@ import SecretComponent from '@/components/secret'
 import DashboardAddItem from '@/components/dashboard/new-item'
 import DashboardListItems from '@/components/dashboard/list-items'
 
+
+// TODO: revamp this page
+
 function Dashboard() {
 	return (
 		<Layout>

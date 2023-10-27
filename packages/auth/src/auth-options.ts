@@ -3,9 +3,10 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { verify } from 'argon2'
 import { NextAuthOptions } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
-import GithubProvider from 'next-auth/providers/github'
+import GoogleProvider from 'next-auth/providers/google'
 import { z } from 'zod'
 import packageJSON from 'package.json'
+import Google from 'next-auth/providers/google'
 export const loginSchema = z.object({
 	email: z.string().email(),
 	password: z.string().min(6).max(15),
@@ -48,28 +49,21 @@ export const authOptions: NextAuthOptions = {
 				}
 			},
 		}),
-		GithubProvider({
-			// https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps
-			clientId: process.env.GITHUB_CLIENT_ID!,
-			clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+		GoogleProvider({
+			clientId: process.env.GOOGLE_CLIENT_ID!,
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
 			authorization: {
 				params: {
-					scope: 'read:user user:email',
+					scope: "openid email profile https://www.googleapis.com/auth/photoslibrary.readonly"
 				}
-			},
-			profile(profile) {
-				return {
-					id: profile.id,
-					name: profile.name ?? profile.login,
-					username: profile.login,
-					email: profile.email,
-					image: profile.avatar_url,
-				}
-			},
-		})
+			}
+		}),
 	],
 	callbacks: {
-		async jwt({ token, user }) {
+		async jwt({ token, user, account }) {
+			if (account?.access_token) {
+				token.access_token = account.access_token;
+			}
 			if (user) {
 				// check if user is admin
 				const user_exists = await prisma.user.findUnique({
@@ -98,6 +92,9 @@ export const authOptions: NextAuthOptions = {
 				session.user.id = token.id
 				session.user.username = token.username
 				session.version = token.version
+			}
+			if (token.access_token) {
+				session.access_token = token.access_token
 			}
 			return session
 		},
