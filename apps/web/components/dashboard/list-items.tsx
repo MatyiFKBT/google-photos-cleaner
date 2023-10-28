@@ -2,7 +2,7 @@ import { trpc } from '@/utils/trpc'
 import React from 'react'
 
 export default function DashboardListItems() {
-	const { data, isLoading, error } = trpc.photos.getAlbums.useQuery()
+	const { data, isLoading, error } = trpc.photos.getScreenshots.useQuery()
 
 	return (
 		<div className="border-2 border-white p-2">
@@ -19,13 +19,14 @@ export default function DashboardListItems() {
 						{JSON.stringify(data, null, 2)}
 					</pre>
 				</details>
-				<div className="flex">
+				<div className=" grid grid-cols-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1.5 ">
 
-					{data.map((item) => (
-						<div key={item.id}>
-							<img src={item.baseUrl} />
-						</div>
-					))}
+					{data.mediaItems
+						.map((item) => (
+							<div key={item.id}>
+								<img className="border-yellow-500 border-8" src={item.baseUrl} />
+							</div>
+						))}
 				</div>
 			</div>}
 		</div>

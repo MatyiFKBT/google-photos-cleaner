@@ -13,7 +13,6 @@ const t = initTRPC.context<Context>().create({
 });
 
 const isAuth = t.middleware(async ({ ctx, next }) => {
-	console.log(ctx.session)
 	if (!ctx.session?.user) {
 		throw new TRPCError({
 			code: 'UNAUTHORIZED',

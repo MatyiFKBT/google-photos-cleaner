@@ -6,7 +6,6 @@ import Credentials from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 import { z } from 'zod'
 import packageJSON from 'package.json'
-import Google from 'next-auth/providers/google'
 export const loginSchema = z.object({
 	email: z.string().email(),
 	password: z.string().min(6).max(15),
@@ -54,7 +53,7 @@ export const authOptions: NextAuthOptions = {
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
 			authorization: {
 				params: {
-					scope: "openid email profile https://www.googleapis.com/auth/photoslibrary.readonly"
+					scope: "openid email profile https://www.googleapis.com/auth/photoslibrary"
 				}
 			}
 		}),

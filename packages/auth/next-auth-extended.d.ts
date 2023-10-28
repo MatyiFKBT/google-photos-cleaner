@@ -16,7 +16,7 @@ declare module "next-auth" {
 		}
 		version: string
 		message?: string
-		access_token?: string
+		access_token: string
 	}
 }
 declare module "next-auth/jwt" {
@@ -27,6 +27,6 @@ declare module "next-auth/jwt" {
 		id: string
 		username: string
 		version: string
-		access_token?: string
+		access_token: string
 	}
 }
