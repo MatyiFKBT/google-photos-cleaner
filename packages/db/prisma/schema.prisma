@@ -18,8 +18,6 @@ model User {
   role            String  @default("USER")
   hashed_password String? // this is only for password auth
 
-  posts Post[]
-
   followers User[] @relation("followers")
   following User[] @relation("followers")
 
@@ -69,13 +67,4 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verification_tokens")
-}
-
-model Post {
-  id           String   @id @default(cuid())
-  text String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String
-
-  @@map("posts")
 }

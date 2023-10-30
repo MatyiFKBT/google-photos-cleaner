@@ -12,9 +12,8 @@ interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-  name: "Next.js",
-  description:
-    "Beautifully designed components built with Radix UI and Tailwind CSS.",
+  name: "Google Photos Cleaner",
+  description: "Regain control of your Google Photos library, with a simple, fast web app.",
   mainNav: [
     {
       title: "Home",
